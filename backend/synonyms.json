@@ -1,0 +1,12 @@
+{
+  "Customer Name": ["Client Name", "Account Name", "Company", "Client", "Organization", "Buyer"],
+  "Transaction Date": ["Invoice Date", "Date", "Created At", "Timestamp", "Order Date", "Billing Date"],
+  "Revenue": ["Invoice Value", "Total", "Amount", "MRR", "Sales", "Gross", "Revenue"],
+  "Expense": ["Monthly Cost", "Cost", "COGS", "Spend", "Operating Expense", "Outflow"],
+  "Product": ["Subscription Plan", "Item", "Service", "Plan", "Product Name", "SKU"],
+  "Transaction ID": ["Invoice ID", "ID", "Ref", "Order ID", "Transaction Number", "Receipt ID"],
+  "Department": ["Cost Center", "Team", "Business Unit", "Division", "Dept"],
+  "Industry": ["Vertical", "Sector", "Niche", "Market"],
+  "Country": ["Region", "Nation", "Location", "Geography"],
+  "Employee": ["Sales Rep", "Agent", "Account Executive", "Owner", "Staff"]
+}

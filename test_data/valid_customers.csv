@@ -1,0 +1,6 @@
+Client Name,Invoice Date,Invoice Value,Monthly Cost,Subscription Plan,ID,Region
+Acme Corp,2026-10-01,15000,500,Enterprise,INV-1001,North America
+Globex,2026-10-02,8500,200,Pro,INV-1002,Europe
+Initech,2026-10-03,22000,800,Enterprise,INV-1003,North America
+Umbrella Corp,2026-10-04,4500,100,Basic,INV-1004,Asia
+Stark Ind,2026-10-05,95000,2500,Enterprise Plus,INV-1005,North America
