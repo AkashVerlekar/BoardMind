@@ -54,5 +54,5 @@ def health_check(db: Session = Depends(get_db)) -> Dict[str, str]:
     return {
         "status": "ok",
         "database": db_status,
-        "environment": settings.API_ENV
+        "environment": "production"
     }
