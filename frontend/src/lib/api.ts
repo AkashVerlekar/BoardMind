@@ -2,7 +2,8 @@ import axios from 'axios';
 
 // Base API instance configured for the FastAPI backend
 export const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api/v1',
+  //baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api/v1',
+  baseURL: 'https://boardmind-1.onrender.com/api/v1',
   headers: {
     'Content-Type': 'application/json',
   },
