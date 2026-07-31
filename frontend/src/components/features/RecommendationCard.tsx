@@ -21,7 +21,7 @@ export function RecommendationCard({ rec: initialRec }: RecommendationProps) {
     try {
       await dashboardApi.updateRecommendationStatus(rec.id, status, assignedToId);
       // Only update the properties we changed, to prevent wiping the card if the API returns a generic success message
-      setRec(prev => ({ ...prev, status }));
+      setRec((prev: any) => ({ ...prev, status }));
       if (status === "Approved") {
         fetchEmployees();
       }
