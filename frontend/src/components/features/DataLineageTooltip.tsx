@@ -9,10 +9,10 @@ import {
 } from "@/components/ui/tooltip";
 
 interface DataLineageProps {
-  sourceFile: string;
-  importDate: string;
-  profileUsed: string;
-  recordCount: number;
+  sourceFile?: string;
+  importDate?: string;
+  profileUsed?: string;
+  recordCount?: number;
   className?: string;
 }
 
