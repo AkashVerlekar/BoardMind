@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { FileText, Download, CheckCircle, Loader2, Calendar, TrendingUp, ShieldAlert } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import jsPDF from "jspdf";
+import { dashboardApi } from "@/lib/api";
 
 const templates = [
   {
