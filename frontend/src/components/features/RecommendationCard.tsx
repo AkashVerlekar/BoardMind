@@ -11,7 +11,7 @@ interface RecommendationProps {
 }
 
 export function RecommendationCard({ rec: initialRec }: RecommendationProps) {
-  const [rec, setRec] = useState(initialRec);
+  const [rec, setRec] = useState<any>(initialRec);
   const [loading, setLoading] = useState(false);
   const [employees, setEmployees] = useState<any[]>([]);
   const [selectedEmployee, setSelectedEmployee] = useState("");
