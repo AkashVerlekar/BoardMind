@@ -1,5 +1,5 @@
 "use client";
-
+import { useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -25,13 +25,33 @@ const navItems = [
 
 export function Sidebar() {
   const pathname = usePathname();
-  const { sidebarOpen } = useAppStore();
+  const { sidebarOpen, setSidebarOpen } = useAppStore();
 
-  if (!sidebarOpen) return null;
+  // Close sidebar on navigation for mobile devices
+  useEffect(() => {
+    if (window.innerWidth < 1024) {
+      setSidebarOpen(false);
+    }
+  }, [pathname, setSidebarOpen]);
 
   return (
-    <aside className="fixed inset-y-0 left-0 z-50 w-64 border-r bg-card/50 backdrop-blur-xl flex flex-col transition-all duration-300">
-      <div className="h-16 flex items-center px-6 border-b">
+    <>
+      {/* Mobile Overlay */}
+      <div 
+        className={cn(
+          "fixed inset-0 z-40 bg-background/80 backdrop-blur-sm transition-opacity lg:hidden",
+          sidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        )}
+        onClick={() => setSidebarOpen(false)}
+      />
+      
+      <aside 
+        className={cn(
+          "fixed inset-y-0 left-0 z-50 w-64 sm:w-72 border-r bg-card/95 lg:bg-card/50 backdrop-blur-xl flex flex-col transition-transform duration-300 ease-in-out lg:translate-x-0",
+          sidebarOpen ? "translate-x-0" : "-translate-x-full"
+        )}
+      >
+        <div className="h-16 flex items-center px-6 border-b">
         <div className="flex items-center gap-2 font-bold text-xl tracking-tight">
           <div className="w-6 h-6 rounded-md bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center">
             <span className="text-white text-xs font-black">B</span>
@@ -81,5 +101,6 @@ export function Sidebar() {
         </Link>
       </div>
     </aside>
+    </>
   );
 }
