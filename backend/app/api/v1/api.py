@@ -160,7 +160,26 @@ def generate_action_plan(
     # We should gather some metrics context to enrich the plan.
     analytics = AnalyticsEngine(db)
     analytics_data = analytics.get_strategic_analytics("30d")
-    metrics_context = "\n".join([f"- {k}: {v.current_value} ({v.percentage_change}%)" for k, v in analytics_data.items()])
+    health_data = analytics.calculate_business_health("30d")
+    
+    metrics_context_lines = []
+    metrics_context_lines.append(f"Business Health Score: {health_data.overall:.1f} ({health_data.summary})")
+    metrics_context_lines.append("Key Strategic Metrics:")
+    for k, v in analytics_data.items():
+        metrics_context_lines.append(f"  - {k}: {v.current_value} (Change: {v.percentage_change:.1f}%, Status: {v.status})")
+        
+    decision = DecisionEngine(db)
+    decision_result = decision.execute(
+        schemas.AnalyticsResponse(strategic=analytics_data, operational=analytics.get_operational_analytics())
+    )
+    
+    anomalies = decision_result.get("anomalies", [])
+    if anomalies:
+        metrics_context_lines.append("Recent Critical Anomalies:")
+        for a in anomalies[:3]:
+            metrics_context_lines.append(f"  - {a.metric_name} ({a.severity}): {a.description}")
+            
+    metrics_context = "\n".join(metrics_context_lines)
     
     action_plan_md, is_ai = ai_layer.generate_action_plan(rec, metrics_context)
     

@@ -23,12 +23,18 @@ class PromptBuilder:
 
     @staticmethod
     def build_action_plan_prompt(recommendation, metrics_context: str) -> str:
+        # Some fields might not exist if it's an anomaly being passed as a recommendation
+        priority = getattr(recommendation, "priority", "High")
+        confidence = getattr(recommendation, "confidence_level", "Unknown")
+        
         return ACTION_PLAN_PROMPT.format(
             title=recommendation.title,
             description=recommendation.description,
             reason=recommendation.recommendation_reason or "N/A",
             department=recommendation.department_name or "N/A",
             source_metric=recommendation.source_metric or "N/A",
+            priority=priority,
+            confidence=confidence,
             metrics_context=metrics_context
         )
 

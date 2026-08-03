@@ -1,4 +1,4 @@
-import google.generativeai as genai
+from google import genai
 import json
 import logging
 import time
@@ -12,8 +12,8 @@ class GeminiClient:
     
     def __init__(self):
         if settings.gemini_api_key:
-            genai.configure(api_key=settings.gemini_api_key)
-            self.model = genai.GenerativeModel('gemini-1.5-flash')
+            self.client = genai.Client(api_key=settings.gemini_api_key)
+            self.model_name = 'gemini-2.5-flash'
         else:
             logger.warning("GEMINI_API_KEY is not set. AI features will be mocked.")
             self.model = None
@@ -21,7 +21,7 @@ class GeminiClient:
     def generate_json(self, prompt: str, schema_class=None, max_retries: int = 3) -> dict:
         """Sends a prompt to Gemini and guarantees JSON output adhering to the schema, with retries."""
         
-        if not self.model:
+        if not hasattr(self, 'client'):
             return {"error": "AI is disabled. Please configure GEMINI_API_KEY.", "summary": "AI is disabled.", "confidence": 0.0}
             
         if settings.gemini_api_key == "demo_key":
@@ -34,7 +34,10 @@ class GeminiClient:
         while attempt < max_retries:
             try:
                 logger.info(f"Sending prompt to Gemini (Attempt {attempt + 1}/{max_retries})...")
-                response = self.model.generate_content(prompt)
+                response = self.client.models.generate_content(
+                    model=self.model_name,
+                    contents=prompt,
+                )
                 
                 # Extract text from response
                 text = response.text
